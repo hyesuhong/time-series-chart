@@ -15,7 +15,13 @@ function App() {
 		console.log(data);
 	}, [data]);
 
-	return <></>;
+	return (
+		<>
+			{loading && <p>loading</p>}
+			{error && <p>error</p>}
+			{data && <p>data</p>}
+		</>
+	);
 }
 
 export default App;

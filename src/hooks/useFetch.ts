@@ -9,7 +9,7 @@ interface Json<T> {
 interface Data<T> {
 	loading: boolean;
 	data?: T;
-	error?: Error;
+	error?: unknown;
 }
 
 const useFetch = <T>(url: string) => {
@@ -23,9 +23,11 @@ const useFetch = <T>(url: string) => {
 					if (data.ok) {
 						return data.json() as Promise<Json<T>>;
 					} else {
-						throw new Error(
-							`error code: ${data.status}\nerror text: ${data.statusText}`
-						);
+						const errorObj = {
+							status: data.status,
+							statusText: data.statusText,
+						};
+						throw new Error('Fetch Error', { cause: errorObj });
 					}
 				})
 				.then((json) => {
@@ -33,7 +35,7 @@ const useFetch = <T>(url: string) => {
 				});
 		} catch (e) {
 			console.error(e);
-			setResponse((prev) => ({ ...prev, error: e as Error }));
+			setResponse((prev) => ({ ...prev, error: e }));
 		} finally {
 			setResponse((prev) => ({ ...prev, loading: false }));
 		}
