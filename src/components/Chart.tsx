@@ -8,6 +8,7 @@ import {
 	XAxis,
 	YAxis,
 } from 'recharts';
+import CustomTooltip from './Tooltip';
 
 export interface Mock {
 	[key: string]: {
@@ -42,7 +43,7 @@ const Chart = ({ data }: Chart) => {
 						yAxisId='0'
 						domain={['auto', 'dataMax + 100']}
 					/>
-					<Tooltip />
+					<Tooltip content={<CustomTooltip />} />
 					<Legend />
 					<Bar dataKey='value_bar' barSize={10} fill='#A3D6EC' yAxisId={1} />
 					<Area
