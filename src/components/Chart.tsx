@@ -9,17 +9,10 @@ import {
 	YAxis,
 } from 'recharts';
 import CustomTooltip from './Tooltip';
-
-export interface Mock {
-	[key: string]: {
-		id: string;
-		value_area: number;
-		value_bar: number;
-	};
-}
+import { MockObj } from '../types/data';
 
 interface Chart {
-	data: Mock;
+	data: MockObj;
 }
 
 const Chart = ({ data }: Chart) => {
