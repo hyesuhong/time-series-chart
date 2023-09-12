@@ -1,19 +1,10 @@
 import { Obj } from '../types/data';
 
 type GetCategory = {
-	<T>(
-		filteringFn: (value: T) => string,
-		data?: Obj<T>,
-		useAll?: boolean
-	): string[];
+	<T>(filteringFn: (value: T) => string, data?: Obj<T>): string[];
 };
 
-export const getCategory: GetCategory = (
-	filteringFn,
-	data = {},
-	useAll = true
-) => {
-	const initialList = useAll ? ['전체'] : [];
+export const getCategory: GetCategory = (filteringFn, data = {}) => {
 	const category = Object.keys(data).reduce<string[]>((acc, cur) => {
 		const target = filteringFn(data[cur]);
 		const firstTargetIndex = acc.findIndex((item) => item === target);
@@ -24,7 +15,7 @@ export const getCategory: GetCategory = (
 		acc.push(target);
 
 		return acc;
-	}, initialList);
+	}, []);
 
 	return category;
 };
