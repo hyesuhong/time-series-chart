@@ -1,7 +1,9 @@
 import { ChangeEvent } from 'react';
 import { useCategory, useCategoryDispatch } from '../contexts/categoryContext';
+import CategoryRadio from '../components/Filter/CategoryRadio';
+import ResetBtn from '../components/Filter/ResetBtn';
 
-const Category = () => {
+const FilterContainer = () => {
 	const { categories, current } = useCategory();
 	const categoryDispatch = useCategoryDispatch();
 
@@ -22,21 +24,18 @@ const Category = () => {
 			<ul>
 				{categories.map((item, index) => (
 					<li key={index}>
-						<input
-							type='radio'
+						<CategoryRadio
+							categoryValue={item}
 							name='category'
-							value={item}
-							id={`category_${index}`}
 							checked={item === current}
 							onChange={changeCategory}
 						/>
-						<label htmlFor={`category_${index}`}>{item}</label>
 					</li>
 				))}
 			</ul>
-			<button onClick={resetCategory}>초기화</button>
+			<ResetBtn onClick={resetCategory}>초기화</ResetBtn>
 		</>
 	);
 };
 
-export default Category;
+export default FilterContainer;

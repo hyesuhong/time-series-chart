@@ -1,8 +1,8 @@
 import useFetch from './hooks/useFetch';
 import { MockObj, MockData } from './types/data';
 import { getCategory } from './utils/category';
-import Category from './components/Category';
 import CategoryProvider from './contexts/categoryContext';
+import FilterContainer from './container/FilterContainer';
 import ChartContainer from './container/ChartContainer';
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
 			{error && <p>error</p>}
 			{data && (
 				<CategoryProvider initialCategory={category}>
-					<Category />
+					<FilterContainer />
 					<ChartContainer data={data} />
 				</CategoryProvider>
 			)}
