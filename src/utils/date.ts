@@ -10,8 +10,6 @@ export const getRange = (data: string[] = []) => {
 	const startDate = new Date(min);
 	const endDate = new Date(max);
 
-	console.log(startDate, endDate);
-
 	return { from: startDate, to: endDate };
 };
 
@@ -34,7 +32,6 @@ export const dateRangeToStr = ({ from, to }: { from?: Date; to?: Date }) => {
 	const toMinutes = to.getMinutes();
 	const toSeconds = to.getSeconds();
 
-	console.log(fromYear);
 	if (fromYear === toYear && fromMonth === toMonth && fromDay === toDay) {
 		const timeRange = `${fromHours}:${fromMinutes}:${fromSeconds} ~ ${toHours}:${toMinutes}:${toSeconds}`;
 		return `${fromYear}년 ${fromMonth}월 ${fromDay}일(${timeRange})`;
