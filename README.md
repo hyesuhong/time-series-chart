@@ -6,7 +6,9 @@
 
 ## 결과 미리보기
 
-<!-- 이미지 위치 -->
+[배포 링크](https://tiny-twilight-aec3b6.netlify.app/)
+
+![Sep-13-2023 22-39-59](https://github.com/hyesuhong/wanted-pre-onboarding-week-4/assets/70276660/8b8bccf5-7612-441f-a863-d7cbfb46f9d3)
 
 ## 시작 가이드
 
