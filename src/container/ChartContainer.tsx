@@ -1,5 +1,5 @@
 import { CategoricalChartFunc } from 'recharts/types/chart/generateCategoricalChart';
-import Chart from '../components/Chart';
+import Chart from '../components/Chart/Chart';
 import { useCategory, useCategoryDispatch } from '../contexts/categoryContext';
 import { MockObj } from '../types/data';
 
