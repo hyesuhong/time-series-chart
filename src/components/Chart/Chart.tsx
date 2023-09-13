@@ -23,25 +23,45 @@ interface Chart {
 	chartAreaClick?: CategoricalChartFunc;
 }
 
+const tickOpt = { fill: '#666', fontSize: 12 };
+const axisPadding = {
+	x: { left: 10, right: 10 },
+	y: { top: 30 },
+};
+const yAxisLabelOpt = { fontSize: 14 };
+const yAxisDomain = ['auto', 'dataMax + 100'];
+
 const Chart = ({ data, currentItem, chartAreaClick }: Chart) => {
 	return (
 		<>
 			<ResponsiveContainer width='100%' height={500}>
 				<ComposedChart data={data} onClick={chartAreaClick}>
-					<XAxis dataKey='date' padding={{ left: 30, right: 30 }} />
+					<XAxis dataKey='date' padding={axisPadding.x} tick={tickOpt} />
 					<YAxis
 						dataKey='value_bar'
 						orientation='right'
-						label={{ value: 'Bar', angle: 90, position: 'insideRight' }}
+						label={{
+							...yAxisLabelOpt,
+							value: 'Bar',
+							position: 'insideTopRight',
+						}}
 						yAxisId='1'
-						domain={['auto', 'dataMax + 100']}
+						domain={yAxisDomain}
+						padding={axisPadding.y}
+						tick={tickOpt}
 					/>
 					<YAxis
 						dataKey='value_area'
 						orientation='left'
-						label={{ value: 'Area', angle: -90, position: 'insideLeft' }}
+						label={{
+							...yAxisLabelOpt,
+							value: 'Area',
+							position: 'insideTopLeft',
+						}}
 						yAxisId='0'
-						domain={['auto', 'dataMax + 100']}
+						domain={yAxisDomain}
+						padding={axisPadding.y}
+						tick={tickOpt}
 					/>
 					<Tooltip content={<CustomTooltip />} />
 					<Legend />
