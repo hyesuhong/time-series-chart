@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { errorType, getError } from '../utils/error';
 
 interface Json<T> {
 	type: string;
@@ -9,7 +10,7 @@ interface Json<T> {
 interface Data<T> {
 	loading: boolean;
 	data?: T;
-	error?: unknown;
+	error?: errorType;
 }
 
 const useFetch = <T>(url: string) => {
@@ -35,7 +36,8 @@ const useFetch = <T>(url: string) => {
 				});
 		} catch (e) {
 			console.error(e);
-			setResponse((prev) => ({ ...prev, error: e }));
+			const error = getError(e);
+			setResponse((prev) => ({ ...prev, error: error }));
 		} finally {
 			setResponse((prev) => ({ ...prev, loading: false }));
 		}
