@@ -4,6 +4,7 @@ import { getCategory } from './utils/category';
 import CategoryProvider from './contexts/categoryContext';
 import FilterContainer from './container/FilterContainer';
 import ChartContainer from './container/ChartContainer';
+import GlobalStyle from './styles/Global.styled';
 
 function App() {
 	const { loading, data, error } = useFetch<MockObj>('./data/mock_data.json');
@@ -11,6 +12,7 @@ function App() {
 
 	return (
 		<>
+			<GlobalStyle />
 			{loading && <p>loading</p>}
 			{error && <p>error</p>}
 			{data && (

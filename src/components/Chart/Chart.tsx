@@ -45,7 +45,7 @@ const Chart = ({ data, currentItem, chartAreaClick }: Chart) => {
 					/>
 					<Tooltip content={<CustomTooltip />} />
 					<Legend />
-					<Bar dataKey='value_bar' barSize={10} yAxisId={1} fill='#A3D6EC'>
+					<Bar dataKey='value_bar' yAxisId={1} fill='#A3D6EC'>
 						{data.map((data, index) => (
 							<Cell
 								key={`cell_${index}`}
