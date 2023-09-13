@@ -12,23 +12,25 @@ import {
 import { CategoricalChartFunc } from 'recharts/types/chart/generateCategoricalChart';
 import CustomTooltip from './Tooltip';
 import { MockObj } from '../types/data';
+import { useCategory, useCategoryDispatch } from '../contexts/categoryContext';
 
 interface Chart {
 	data: MockObj;
-	currentItem: string;
-	changeItem: (value: string) => void;
 }
 
-const Chart = ({ data, currentItem, changeItem }: Chart) => {
+const Chart = ({ data }: Chart) => {
+	const { current } = useCategory();
+	const categoryDispatch = useCategoryDispatch();
+
 	const chartData = Object.keys(data).map((d) => ({ date: d, ...data[d] }));
 
 	const clickChart: CategoricalChartFunc = (props) => {
-		if (!props.activePayload) {
+		if (!(props.activePayload && categoryDispatch)) {
 			return;
 		}
 
 		const { id } = props.activePayload[0].payload;
-		changeItem(id);
+		categoryDispatch && categoryDispatch({ type: 'CHANGE', selected: id });
 	};
 
 	return (
@@ -56,7 +58,7 @@ const Chart = ({ data, currentItem, changeItem }: Chart) => {
 						{chartData.map((data, index) => (
 							<Cell
 								key={`cell_${index}`}
-								fill={data.id === currentItem ? '#21B2E4' : '#A3D6EC'}
+								fill={data.id === current ? '#21B2E4' : '#A3D6EC'}
 							/>
 						))}
 					</Bar>

@@ -1,36 +1,40 @@
 import { ChangeEvent } from 'react';
+import { useCategory, useCategoryDispatch } from '../contexts/categoryContext';
 
-interface Props {
-	list: string[];
-	currentItem: string;
-	changeItem: (value: string) => void;
-	resetItem: () => void;
-}
+const Category = () => {
+	const { categories, current } = useCategory();
+	const categoryDispatch = useCategoryDispatch();
 
-const Category = ({ list, currentItem, changeItem, resetItem }: Props) => {
 	const changeCategory = (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
-		changeItem(value);
+		if (!categoryDispatch) {
+			return;
+		}
+		categoryDispatch({ type: 'CHANGE', selected: value });
+	};
+
+	const resetCategory = () => {
+		categoryDispatch && categoryDispatch({ type: 'RESET' });
 	};
 
 	return (
 		<>
 			<ul>
-				{list.map((item, index) => (
+				{categories.map((item, index) => (
 					<li key={index}>
 						<input
 							type='radio'
 							name='category'
 							value={item}
 							id={`category_${index}`}
-							checked={item === currentItem}
+							checked={item === current}
 							onChange={changeCategory}
 						/>
 						<label htmlFor={`category_${index}`}>{item}</label>
 					</li>
 				))}
 			</ul>
-			<button onClick={resetItem}>초기화</button>
+			<button onClick={resetCategory}>초기화</button>
 		</>
 	);
 };
