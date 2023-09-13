@@ -15,7 +15,7 @@ const ChartContainer = ({ data }: chart) => {
 	const chartData = Object.keys(data).map((d) => ({ date: d, ...data[d] }));
 
 	const clickChart: CategoricalChartFunc = (props) => {
-		if (!(props.activePayload && categoryDispatch)) {
+		if (!(props && props.activePayload && categoryDispatch)) {
 			return;
 		}
 
