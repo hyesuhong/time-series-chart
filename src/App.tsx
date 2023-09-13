@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import useFetch from './hooks/useFetch';
 import { MockObj, MockData } from './types/data';
 import { getCategory } from './utils/category';
+import { dateRangeToStr, getRange } from './utils/date';
 import CategoryProvider from './contexts/categoryContext';
 import FilterContainer from './container/FilterContainer';
 import ChartContainer from './container/ChartContainer';
@@ -9,7 +10,6 @@ import GlobalStyle from './styles/Global.styled';
 import Loading from './components/common/Loading';
 import ErrorScreen from './components/common/ErrorScreen';
 import Title from './components/common/Title';
-import { dateRangeToStr, getRange } from './utils/date';
 
 function App() {
 	const { loading, data, error } = useFetch<MockObj>('./data/mock_data.json');

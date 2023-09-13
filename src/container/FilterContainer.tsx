@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react';
+import styled from 'styled-components';
 import { useCategory, useCategoryDispatch } from '../contexts/categoryContext';
 import CategoryRadio from '../components/Filter/CategoryRadio';
 import ResetBtn from '../components/Filter/ResetBtn';
-import styled from 'styled-components';
 
 const FilterContainer = () => {
 	const { categories, current } = useCategory();
