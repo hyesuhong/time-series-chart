@@ -1,27 +1,69 @@
-# React + TypeScript + Vite
+# 원티드 프리온보딩 12차 - 4주차 과제
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 과제 소개
 
-Currently, two official plugins are available:
+> 데이터 차트화 + 조건부 필터링
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 결과 미리보기
 
-## Expanding the ESLint configuration
+<!-- 이미지 위치 -->
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 시작 가이드
 
-- Configure the top-level `parserOptions` property like this:
+### 설치
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```
+$ git clone git@github.com:hyesuhong/wanted-pre-onboarding-week-4.git
+$ cd wanted-pre-onboarding-week-4
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### 로컬 서버 구동
+
+```
+$ npm install
+$ npm run dev
+```
+
+## 주요 기능
+
+### 시계열 차트
+
+-
+
+### 차트 툴팁
+
+-
+
+### 데이터 필터링
+
+-
+
+## 개발 중점 사항
+
+## 프로젝트 구성
+
+### 디렉토리
+
+```
+src
+ ┣ assets
+ ┣ components
+ ┃ ┣ Chart
+ ┃ ┣ Filter
+ ┃ ┗ common
+ ┣ container
+ ┣ contexts
+ ┣ hooks
+ ┣ styles
+ ┣ types
+ ┗ utils
+```
+
+## 기술 스택
+
+### Development
+
+![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black)
+![Typescript](https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white)
+![styled components](https://img.shields.io/badge/styled_components-DB7093?style=flat-square&logo=styledcomponents&logoColor=white)
+![recharts](https://img.shields.io/badge/recharts-23A7B2?style=flat-square)
