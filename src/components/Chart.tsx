@@ -11,32 +11,23 @@ import {
 } from 'recharts';
 import { CategoricalChartFunc } from 'recharts/types/chart/generateCategoricalChart';
 import CustomTooltip from './Tooltip';
-import { MockObj } from '../types/data';
-import { useCategory, useCategoryDispatch } from '../contexts/categoryContext';
 
 interface Chart {
-	data: MockObj;
+	data: {
+		id: string;
+		value_area: number;
+		value_bar: number;
+		date: string;
+	}[];
+	currentItem?: string;
+	chartAreaClick?: CategoricalChartFunc;
 }
 
-const Chart = ({ data }: Chart) => {
-	const { current } = useCategory();
-	const categoryDispatch = useCategoryDispatch();
-
-	const chartData = Object.keys(data).map((d) => ({ date: d, ...data[d] }));
-
-	const clickChart: CategoricalChartFunc = (props) => {
-		if (!(props.activePayload && categoryDispatch)) {
-			return;
-		}
-
-		const { id } = props.activePayload[0].payload;
-		categoryDispatch && categoryDispatch({ type: 'CHANGE', selected: id });
-	};
-
+const Chart = ({ data, currentItem, chartAreaClick }: Chart) => {
 	return (
 		<>
 			<ResponsiveContainer width='100%' height={500}>
-				<ComposedChart data={chartData} onClick={clickChart}>
+				<ComposedChart data={data} onClick={chartAreaClick}>
 					<XAxis dataKey='date' padding={{ left: 30, right: 30 }} />
 					<YAxis
 						dataKey='value_bar'
@@ -55,10 +46,10 @@ const Chart = ({ data }: Chart) => {
 					<Tooltip content={<CustomTooltip />} />
 					<Legend />
 					<Bar dataKey='value_bar' barSize={10} yAxisId={1} fill='#A3D6EC'>
-						{chartData.map((data, index) => (
+						{data.map((data, index) => (
 							<Cell
 								key={`cell_${index}`}
-								fill={data.id === current ? '#21B2E4' : '#A3D6EC'}
+								fill={data.id === currentItem ? '#21B2E4' : '#A3D6EC'}
 							/>
 						))}
 					</Bar>
