@@ -77,5 +77,6 @@ jobs:
           SSH_HOSTNAME: ${{ secrets.EC2_HOSTNAME }}
       
       - name: Remove Github Actions IP From Security Group
+        continue-on-error: true
         run: |
           aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip4.outputs.IP }}/32
