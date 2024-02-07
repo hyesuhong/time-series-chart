@@ -6,20 +6,9 @@ on:
       - main
 
 jobs:
-  ip:
-    runs-on: ubuntu-latest
-    outputs:
-      ip4: ${{ steps.ip4.outputs.ip4 }}
-    steps:
-      - name: Get public ip4
-        id: ip4
-        run: |
-          ip=$(curl -s https://api.ipify.org)
-          echo "ip4=${ip}" >> "$GITHUB_OUTPUT"
-          
   build:
     runs-on: ubuntu-latest
-    needs: ip
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -56,13 +45,14 @@ jobs:
         
   deployment:
     runs-on: ubuntu-latest
-    needs: [ ip, build ]
+    needs: build
     steps:
-      - name: Check ip
+      - name: Get public ip4
+        id: ip4
         run: |
           ip=$(curl -s https://api.ipify.org)
-          echo "deployment's ip is ${ip}"
-          echo "ip job's ip is ${{ needs.ip.outputs.ip4 }}"
+          echo "ip4=${ip}" >> "$GITHUB_OUTPUT"
+          
       - name: Create SSH key file
         run: |
           echo "$SSH_PEM_KEY" >> $HOME/su-test.pem
@@ -79,7 +69,7 @@ jobs:
 
       - name: Add Github Actions IP to Security group
         env:
-          IP: ${{ needs.ip.outputs.ip4 }}
+          IP: ${{ jobs.ip4.outputs.ip4 }}
         run: |
           aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${IP}/32
 
@@ -96,6 +86,6 @@ jobs:
       - name: Remove Github Actions IP From Security Group
         if: always()
         env:
-          IP: ${{ needs.ip.outputs.ip4 }}
+          IP: ${{ jobs.ip4.outputs.ip4 }}
         run: |
           aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${IP}/32
