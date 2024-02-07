@@ -18,6 +18,20 @@ jobs:
         with:
           node-version: 18
 
+      - name: Get dependencies cache directory
+        id: dep-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(cache path)" >> $GITHUB_OUTPUT
+
+      - name: Setup npm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.dep-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-dep-store-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-dep-store-
+
       - name: Install dependencies
         run: npm ci
 
@@ -26,7 +40,7 @@ jobs:
 
       - name: Create .pem
         run: |
-          echo "$" >> $HOME/su-test.pem
+          echo "$SSH_PEM_KEY" >> $HOME/su-test.pem
           chmod 400 $HOME/su-test.pem
         env:
           SSH_PEM_KEY: ${{ secrets.AWS_SSH_KEY }}
