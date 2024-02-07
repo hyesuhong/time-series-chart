@@ -69,7 +69,7 @@ jobs:
 
       - name: Add Github Actions IP to Security group
         env:
-          IP: ${{ jobs.ip4.outputs.ip4 }}
+          IP: ${{ steps.ip4.outputs.ip4 }}
         run: |
           aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${IP}/32
 
@@ -86,6 +86,6 @@ jobs:
       - name: Remove Github Actions IP From Security Group
         if: always()
         env:
-          IP: ${{ jobs.ip4.outputs.ip4 }}
+          IP: ${{ steps.ip4.outputs.ip4 }}
         run: |
           aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${IP}/32
