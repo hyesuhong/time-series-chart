@@ -69,9 +69,10 @@ jobs:
 
       - name: Connect to EC2 by SSH
         run: |
-          ssh -i $HOME/su-test.pem -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOSTNAME}
-
+          ssh -i $HOME/su-test.pem -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOSTNAME} '
             whoami
+          '
+          whoami
         env:
           SSH_USER: ${{ secrets.EC2_USER }}
           SSH_HOSTNAME: ${{ secrets.EC2_HOSTNAME }}
