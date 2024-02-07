@@ -13,11 +13,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         
-      - name: Print ip
-        id: ip
+      - name: Get public ip4
+        id: ip4
         run: |
           ip=$(curl -s https://api.ipify.org)
-          echo "My public IP address is: $ip"
+          echo "IP=${ip}" >> "$GITHUB_OUTPUT"
+
+      - name: Print ip4
+        run: echo ${{ steps.ip4.outputs.IP }}
 
       # - name: Install Node.js
       #   uses: actions/setup-node@v3
