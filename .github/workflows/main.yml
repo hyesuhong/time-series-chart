@@ -31,9 +31,12 @@ jobs:
         env:
           SSH_PEM_KEY: ${{ secrets.AWS_SSH_KEY }}
 
-      - name: Check file list
+      - name: Connet EC2 by SSH
         run: |
-          ls $HOME
+          ssh -i $HOME/su-test.pem ${SSH_USER}@${SSH_HOSTNAME}
+        env:
+          SSH_USER: ${{ secrets.EC2_USER }}
+          SSH_HOSTNAME: ${{ secrets.EC2_HOSTNAME }}
 
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
