@@ -98,7 +98,7 @@ jobs:
           SSH_USER: ${{ secrets.EC2_USER }}
           SSH_HOSTNAME: ${{ secrets.EC2_HOSTNAME }}
         run: |
-          scp -i $HOME/su-test.pem -o StrictHostKeyChecking=no tmp/build.tar ${SSH_USER}@${SSH_HOSTNAME}:/var/www
+          scp -v -i $HOME/su-test.pem -o StrictHostKeyChecking=no tmp/build.tar ${SSH_USER}@${SSH_HOSTNAME}:/var/www
 
       # - name: Connect to EC2 by SSH
       #   run: |
