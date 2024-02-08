@@ -43,11 +43,15 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Tar build files
+        run: |
+          find dist | sed s,^dist/,, | tar cvf build.tar --no-recursion -C dist -T -
+
       - name: Upload build artifact inside workflow
         uses: actions/upload-artifact@v4
         with:
           name: build_artifact
-          path: dist
+          path: build.tar
           retention-days: 1
         
   deployment:
@@ -58,9 +62,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build_artifact
+          
 
       - name: Display downloaded files
-        run: ls -R
+        run: |
+          ls -R
+          tar tf build.tar
         
       # - name: Get public ip4
       #   id: ip4
