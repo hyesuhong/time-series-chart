@@ -107,7 +107,13 @@ jobs:
         run: |
           ssh -v -i $HOME/su-test.pem -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOSTNAME} '
             cd /var/www
+            
+            if [ ! -d time-series-chart ]; then
+              mkdir time-series-chart
+            fi
+            
             tar xvf build.tar -C time-series-chart
+            
             ls time-series-chart
           '
           whoami
