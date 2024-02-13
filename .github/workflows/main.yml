@@ -105,16 +105,18 @@ jobs:
           SSH_USER: ${{ secrets.EC2_USER }}
           SSH_HOSTNAME: ${{ secrets.EC2_HOSTNAME }}
         run: |
-          ssh -v -i $HOME/su-test.pem -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOSTNAME} '
+          ssh -i $HOME/su-test.pem -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOSTNAME} '
             cd /var/www
             
             if [ ! -d time-series-chart ]; then
               mkdir time-series-chart
             fi
             
-            tar xvf build.tar -C time-series-chart
+            tar --strip-components=1 xvf build.tar -C time-series-chart
             
             ls time-series-chart
+
+            rm build.tar
           '
           whoami
       
