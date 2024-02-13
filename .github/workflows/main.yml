@@ -112,13 +112,12 @@ jobs:
               mkdir time-series-chart
             fi
             
-            tar --strip-components=1 xvf build.tar -C time-series-chart
+            tar xvf build.tar -C time-series-chart --strip-components=1
             
             ls time-series-chart
 
             rm build.tar
           '
-          whoami
       
       - name: Remove Github Actions IP From Security Group
         if: always()
