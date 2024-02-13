@@ -98,17 +98,19 @@ jobs:
           SSH_USER: ${{ secrets.EC2_USER }}
           SSH_HOSTNAME: ${{ secrets.EC2_HOSTNAME }}
         run: |
-          scp -v -i $HOME/su-test.pem -o StrictHostKeyChecking=no tmp/build.tar ${SSH_USER}@${SSH_HOSTNAME}:/var/www
+          scp -i $HOME/su-test.pem -o StrictHostKeyChecking=no tmp/build.tar ${SSH_USER}@${SSH_HOSTNAME}:/var/www
 
-      # - name: Connect to EC2 by SSH
-      #   env:
-      #     SSH_USER: ${{ secrets.EC2_USER }}
-      #     SSH_HOSTNAME: ${{ secrets.EC2_HOSTNAME }}
-      #   run: |
-      #     ssh -v -i $HOME/su-test.pem -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOSTNAME} '
-      #       whoami
-      #     '
-      #     whoami
+      - name: Connect to EC2 by SSH
+        env:
+          SSH_USER: ${{ secrets.EC2_USER }}
+          SSH_HOSTNAME: ${{ secrets.EC2_HOSTNAME }}
+        run: |
+          ssh -v -i $HOME/su-test.pem -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOSTNAME} '
+            cd /var/www
+            tar xvf build.tar -C time-series-chart
+            ls time-series-chart
+          '
+          whoami
       
       - name: Remove Github Actions IP From Security Group
         if: always()
